@@ -32,27 +32,19 @@
 	ArrayList<Category> categoryList2 = categoryDao.selectCategoryCkList();
 %>
 <body>
-<div class="container">
+<div class="container text-center">
 	<div> <!-- 검색  -->
 		<div class="row">
-		<div class="col"> <h1>Goodee Shop</h1></div>
-		  
-		  <div class="col">
-		  	<form>
-		  		<input type="text">
-		  		<button type="submit">검색</button>
-		  	</form>
-		  </div>
-		 <%
-		 	if(session.getAttribute("loginMemberEmail")!=null){
-		 %>
-		  <div class="col">
-		  		<a href="<%=request.getContextPath()%>/orders/myOrdersList.jsp?memberEmail=<%=session.getAttribute("loginMemberEmail")%>"><i class="fa fa-user" style="font-size:30px"></i></a>
-		  		<i class='fas fa-shopping-cart' style='font-size:30px'></i>
-		  </div>
-		<%
-		 	}
-		%>
+			<div class="col"> 
+				<h1 style="text-align:left;">Shopping Mall</h1>
+			</div>
+			  
+			  <div class="col">
+			  	<form>
+			  		<input type="text">
+			  		<button type="submit">검색</button>
+			  	</form>
+			  </div>
 		</div>
 	</div>
 	
@@ -64,10 +56,10 @@
 	  <!-- 로그아웃 상태 -->
 	   <ul class="navbar-nav">
 	    <li class="nav-item">
-	      <a class="nav-link" href="<%=request.getContextPath()%>/member/loginForm.jsp">로그인</a>
+	      <a class="nav-link text-white" href="<%=request.getContextPath()%>/member/loginForm.jsp">로그인</a>
 	    </li>
 	    <li class="nav-item">
-	      <a class="nav-link" href="<%=request.getContextPath()%>/member/signup.jsp">회원가입</a>
+	      <a class="nav-link text-white" href="<%=request.getContextPath()%>/member/signup.jsp">회원가입</a>
 	    </li>                      
 	  </ul>
   <%
@@ -76,10 +68,13 @@
 	  <!-- 로그인 상태 -->
 	  <ul class="navbar-nav">
 	    <li class="nav-item">
-	      <a class="nav-link" href="<%=request.getContextPath()%>/member/logoutAction.jsp">로그아웃</a>
+	      <a class="nav-link text-white" href="<%=request.getContextPath()%>/member/logoutAction.jsp">로그아웃</a>
 	    </li>
 	    <li class="nav-item">
-	      <a class="nav-link" href="#">회원정보</a>
+	      <a class="nav-link text-white" href="#">내정보</a>
+	    </li>
+	    <li class="nav-item">
+	      <a class="nav-link text-white" href="#">구매목록</a>
 	    </li>
 	  </ul>
 <%
@@ -88,24 +83,21 @@
 	</nav>
 	</div>
 
-	<div class="row">
-		<div class="col-sm-12, badge badge-primary">전체 카테고리</div>
-	</div>
 	<div>
 		<div class="row">
-		  <div class="col-sm-2">
+		  <div class="col-md-2" style="text-align:left; margin-top:10px;">
 		 	<div class="btn-group-vertical"> 
 		 	 <%
 		 	 	for(Category c : categoryList1){
 		 	 %>
-		 	 	<a href="<%=request.getContextPath()%>/category/<%=c.getCategoryId()%>.jsp?CategoryId=<%=c.getCategoryId()%>" class="btn btn-primary"><%=c.getCategoryName()%></a>
+		 	 	<a href="<%=request.getContextPath()%>/product/categoryProductList.jsp?categoryId=<%=c.getCategoryId()%>" class="btn btn-primary"><%=c.getCategoryName()%></a>
 		 	 <% 
 		 	 	}
 		 	 %>
 		 		</div>
 		 	</div>
-				<div class="col-sm-10">
-				 	<img src="<%=request.getContextPath()%>/imges/11.jpg" width="750" height="150">
+				<div class="col-md-10">
+				 	<img src="<%=request.getContextPath()%>/imges/11.jpg" style="text-align:left; margin-top:10px; width:100%; height:70%;">
 			 	</div>
 		</div>
 	</div>
@@ -130,7 +122,7 @@
 		ProductDao productDao = new ProductDao();
 		ArrayList<Product> productList = productDao.selectProductList();
 	%>
-		<table> <!-- 오늘의 추천 상품 정보 -->
+		<table style="width:80%; margin-left: auto; margin-right: auto;"> <!-- 오늘의 추천 상품 정보 -->
 			<tr>
 				<%
 					int i = 0;
@@ -159,36 +151,6 @@
 				%>
 			</tr>
 		</table>
-		<h4>공지사항</h4> <!-- 최근공지 2개 -->
-		<div>
-		<% 
-			NoticeDao noticeDao = new NoticeDao();
-			ArrayList<Notice> list = noticeDao.selectNoticeList();
-		%>
-		<div>
-			<table class="table">
-				<thead>
-					<tr>
-						<th>notice_id</th>
-						<th>notice_title</th>
-					</tr>
-				</thead>
-				<tbody>
-					<%
-						for(Notice n : list){
-					%>		
-						<tr>
-							<td><%=n.getNoticeId()%></td>
-							<td><a href="<%=request.getContextPath()%>/notice/noticeOne.jsp?noticeTitle=<%=n.getNoticeTitle()%>"><%=n.getNoticeTitle()%></td>
-						</tr>
-					<% 	
-						}
-					%>
-				</tbody>
-			</table>
-		</div>
-		
-		</div>
 	</div>
 </body>
 </html>

@@ -19,10 +19,13 @@
 	
 	MemberDao memberDao = new MemberDao();
 	String loginMemberEmail = memberDao.login(paramMember);
+	
 	if(loginMemberEmail == null){
 		response.sendRedirect(request.getContextPath()+"/member/loginForm.jsp");
+		System.out.print("null~~~~~");
 	}else{
 		session.setAttribute("loginMemberEmail",loginMemberEmail);
 		response.sendRedirect(request.getContextPath()+"/index.jsp");
+		System.out.print("not null~~~~~");
 	}
 %>

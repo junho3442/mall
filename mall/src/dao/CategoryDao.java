@@ -7,7 +7,7 @@ public class CategoryDao {
 	public ArrayList<Category> selectCategoryList() throws Exception {
 		ArrayList<Category> list = new ArrayList<Category>();
 		
-		String dbaddr = "jdbc:mariadb://localhost:3306/mall";
+		String dbaddr = "jdbc:mariadb://3.36.19.131/mall";
 		String dbid = "root";
 		String dbpw = "java1004";
 		String sql = "select category_id, category_name from category";
@@ -29,7 +29,7 @@ public class CategoryDao {
 	public ArrayList<Category> selectCategoryCkList() throws Exception {
 		ArrayList<Category> list = new ArrayList<Category>();
 		
-		String dbaddr = "jdbc:mariadb://localhost:3306/mall";
+		String dbaddr = "jdbc:mariadb://3.36.19.131/mall";
 		String dbid = "root";
 		String dbpw = "java1004";
 		String sql = "select category_id, category_pic from category where category_ck='Y' limit 0,4";
@@ -40,12 +40,32 @@ public class CategoryDao {
 		                                                                                                                           
 		while(rs.next()) {
 			Category category = new Category();
-			category.setCategoryId(rs.getInt("category_id")); //  rs= °¡»óÅ×ÀÌºí 
-			category.setCategoryPic(rs.getString("category_pic")); // ÄÃ·³¸íx
+			category.setCategoryId(rs.getInt("category_id")); //  rs= ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ìºï¿½ 
+			category.setCategoryPic(rs.getString("category_pic")); // ï¿½Ã·ï¿½ï¿½ï¿½x
 			list.add(category);
 		}
 		conn.close();
 		
 		return list;
+	}
+	
+	public Category categoryName(int categoryId) throws Exception{
+		Category c = null;
+		
+		String dbaddr = "jdbc:mariadb://3.36.19.131/mall";
+		String dbid = "root";
+		String dbpw = "java1004";
+		String sql = "select category_name from category where category_id=?";
+		Class.forName("org.mariadb.jdbc.Driver");
+		Connection conn = DriverManager.getConnection(dbaddr,dbid,dbpw);
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		
+		stmt.setInt(1, categoryId);
+		ResultSet rs= stmt.executeQuery();
+		if(rs.next()) {
+			c = new Category();
+			c.setCategoryName(rs.getString("category_name"));
+		}
+		return c;
 	}
 }

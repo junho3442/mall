@@ -9,7 +9,7 @@ public class ProductDao{
 			ArrayList<Product> list = new ArrayList<Product>();
 			
 			Class.forName("org.mariadb.jdbc.Driver");
-			Connection conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/mall","root","java1004");
+			Connection conn = DriverManager.getConnection("jdbc:mariadb://3.36.19.131/mall","root","java1004");
 			String sql = "select product_id, product_pic, product_name, product_price from product order by product_price desc limit 0,6";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery();
@@ -29,7 +29,7 @@ public class ProductDao{
 	public Product selectProductOne(int productId) throws Exception{
 		Product p = null;
 		Class.forName("org.mariadb.jdbc.Driver");
-		Connection conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/mall","root","java1004");
+		Connection conn = DriverManager.getConnection("jdbc:mariadb://3.36.19.131/mall","root","java1004");
 		String sql = "select * from product where product_id=?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		
@@ -46,5 +46,26 @@ public class ProductDao{
 			p.setProductPrice(rs.getInt("product_price"));
 		}
 		return p;
+	}
+	public ArrayList<Product> selectCategoryProductList(int categoryId) throws Exception{
+		ArrayList<Product> list = new ArrayList<Product>();
+		Class.forName("org.mariadb.jdbc.Driver");
+		Connection conn = DriverManager.getConnection("jdbc:mariadb://3.36.19.131/mall","root","java1004");
+		String sql = "select * from product where category_id=?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, categoryId);
+		ResultSet rs = stmt.executeQuery();
+		
+		while(rs.next()) { // set = 값을 집어넣을떄   get = 값을 불러올때
+			Product p = new Product(); // 객체 리스트 생성
+			p.setProductId(rs.getInt("product_id")); // p.(vo변수명) = rs.getInt(""); 
+			p.setProductPic(rs.getString("product_pic"));
+			p.setProductName(rs.getString("product_name"));
+			p.setProductPrice(rs.getInt("product_price"));
+			
+			list.add(p);
+		}
+		conn.close();
+		return list;
 	}
 	}

@@ -12,7 +12,7 @@ public class NoticeDao {
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = dbUtil.getConnection();
 		
-		String sql ="select * from notice order by notice_date desc limit 0,2 "; 
+		String sql ="select * from notice order by notice_date desc limit 0,3"; 
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		ResultSet rs = stmt.executeQuery();
 		while(rs.next()) {

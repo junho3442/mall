@@ -5,7 +5,7 @@ import java.sql.*;
 
 public class DBUtil {
 	public Connection getConnection() throws Exception {
-		String dbaddr = "jdbc:mariadb://localhost:3306/mall";
+		String dbaddr = "jdbc:mariadb://3.36.19.131/mall";
 		String dbid = "root";
 		String dbpw = "java1004";
 		

@@ -4,9 +4,9 @@ import commons.*;
 import java.sql.*;
 public class MemberDao {
 	public String login(Member member)throws Exception{
+		String memberEmail = null;
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = dbUtil.getConnection();
-		String memberEmail = null;
 		String sql = "select member_email from member where member_email=? and member_pw=?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, member.getMemberEmail());
