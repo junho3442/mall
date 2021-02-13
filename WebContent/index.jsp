@@ -38,17 +38,10 @@
 			<div class="col"> 
 				<h1 style="text-align:left;">Shopping Mall</h1>
 			</div>
-			  
-			  <div class="col">
-			  	<form>
-			  		<input type="text">
-			  		<button type="submit">검색</button>
-			  	</form>
-			  </div>
 		</div>
 	</div>
 	
-	<div> <!-- 로그인 회원가입 -->
+<div> <!-- 로그인 회원가입 -->
 	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
 	<%
 		if(session.getAttribute("loginMemberEmail") == null){
@@ -81,7 +74,7 @@
 		}		
 %>
 	</nav>
-	</div>
+</div>
 
 	<div>
 		<div class="row">
@@ -90,7 +83,7 @@
 		 	 <%
 		 	 	for(Category c : categoryList1){
 		 	 %>
-		 	 	<a href="<%=request.getContextPath()%>/product/categoryProductList.jsp?categoryId=<%=c.getCategoryId()%>" class="btn btn-primary"><%=c.getCategoryName()%></a>
+		 	 	<a href="<%=request.getContextPath()%>/product/categoryProductList.jsp?categoryId=<%=c.getCategoryId()%>&currentPage=1" class="btn btn-primary"><%=c.getCategoryName()%></a>
 		 	 <% 
 		 	 	}
 		 	 %>
@@ -101,22 +94,11 @@
 			 	</div>
 		</div>
 	</div>
-			<!-- 추천 카테고리 이미지 링크 -->
-		<%
-				for(Category c : categoryList2){
-		%>
-				<a href="" class="btn"><img src="<%=request.getContextPath()%>/imges/<%=c.getCategoryPic()%>"class="rounded-circle" width="200" height="200"></a>
-		<% 			
-					
-				}
-		%>
-	
 		<%
 			Calendar today = Calendar.getInstance();
 		%>
-	
 	<div>
-		<h3>오늘의 추천상품<span class="badge badge-primary"><%=today.get(Calendar.YEAR)%>.<%=today.get(Calendar.MONTH)+1 %>.<%=today.get(Calendar.DAY_OF_MONTH) %></span></h3>
+		<h3 style="margin-top:30px;">오늘의 최신 상품</h3>
 	</div>
 	<%
 		ProductDao productDao = new ProductDao();
@@ -129,19 +111,17 @@
 					for(Product p : productList){
 						i = i+1;
 				%>	
-					<td><div class="card" style="width:200px, height:200px">
+					<td>
+						<div class="card" style="width:200px, height:200px">
 						  <img class="card-img-top" src="<%=request.getContextPath()%>/imges/<%=p.getProductPic()%>"class="rounded-circle" width="150" height="150" alt="Card image">
 						  <div class="card-body">
-						    <h4 class="card-title"><a href="<%=request.getContextPath()%>/product/productOne.jsp?productId=<%=p.getProductId()%>"><%=p.getProductName() %></a></h4>
-						    <p class="card-text"><%=p.getProductPrice() %></p>
-						
+							  <h4 class="card-title"><a href="<%=request.getContextPath()%>/product/productOne.jsp?productId=<%=p.getProductId()%>"><%=p.getProductName() %></a></h4>
+							  <p class="card-text"><%=p.getProductPrice() %>원</p>
 						  </div>
 						</div>
 					</td>
-					<% 
-					
-				%>
-					<% 	
+				
+				<% 	
 					if(i%3 == 0){
 				%>
 					<tr></tr>

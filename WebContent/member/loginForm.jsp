@@ -73,9 +73,9 @@
 		<div class="card-body">
 			<form method="post" action="/mall/member/loginAction.jsp">
 				 <h5 class="form-signin-heading">로그인 정보를 입력해주세요</h5>
-		        <label for="inputEmail" class="sr-only">ID</label>
+		        <label for="uid">ID</label>
 		        <input type="text" id="uid" class="form-control" name="memberEmail" value="admin" required autofocus><br>
-		        <label for="inputPassword" class="sr-only">Password</label>
+		        <label for="upw">Password</label>
 		        <input type="password" id="upw" class="form-control" name="memberPw" value="1234" required><br>
 				<div style="text-align:right;">
 					<button type="submit" class="btn btn-primary">로그인</button>

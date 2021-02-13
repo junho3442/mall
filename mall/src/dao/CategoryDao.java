@@ -40,8 +40,8 @@ public class CategoryDao {
 		                                                                                                                           
 		while(rs.next()) {
 			Category category = new Category();
-			category.setCategoryId(rs.getInt("category_id")); //  rs= �������̺� 
-			category.setCategoryPic(rs.getString("category_pic")); // �÷���x
+			category.setCategoryId(rs.getInt("category_id")); 
+			category.setCategoryPic(rs.getString("category_pic")); 
 			list.add(category);
 		}
 		conn.close();
@@ -55,7 +55,7 @@ public class CategoryDao {
 		String dbaddr = "jdbc:mariadb://3.36.19.131/mall";
 		String dbid = "root";
 		String dbpw = "java1004";
-		String sql = "select category_name from category where category_id=?";
+		String sql = "select category_name,category_pic from category where category_id=?";
 		Class.forName("org.mariadb.jdbc.Driver");
 		Connection conn = DriverManager.getConnection(dbaddr,dbid,dbpw);
 		PreparedStatement stmt = conn.prepareStatement(sql);
@@ -65,6 +65,7 @@ public class CategoryDao {
 		if(rs.next()) {
 			c = new Category();
 			c.setCategoryName(rs.getString("category_name"));
+			c.setCategoryPic(rs.getString("category_pic"));
 		}
 		return c;
 	}

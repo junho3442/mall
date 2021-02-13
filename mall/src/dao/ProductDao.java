@@ -14,9 +14,9 @@ public class ProductDao{
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery();
 			
-			while(rs.next()) { // set = °ªÀ» Áý¾î³ÖÀ»‹š   get = °ªÀ» ºÒ·¯¿Ã¶§
-				Product p = new Product(); // °´Ã¼ ¸®½ºÆ® »ý¼º
-				p.setProductId(rs.getInt("product_id")); // p.(voº¯¼ö¸í) = rs.getInt(""); 
+			while(rs.next()) { // set = ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½   get = ï¿½ï¿½ï¿½ï¿½ ï¿½Ò·ï¿½ï¿½Ã¶ï¿½
+				Product p = new Product(); // ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
+				p.setProductId(rs.getInt("product_id")); // p.(voï¿½ï¿½ï¿½ï¿½ï¿½ï¿½) = rs.getInt(""); 
 				p.setProductPic(rs.getString("product_pic"));
 				p.setProductName(rs.getString("product_name"));
 				p.setProductPrice(rs.getInt("product_price"));
@@ -36,8 +36,8 @@ public class ProductDao{
 		stmt.setInt(1, productId);
 		ResultSet rs = stmt.executeQuery();
 		if(rs.next()) {
-			p = new Product(); // °´Ã¼ ¸®½ºÆ® »ý¼º
-			p.setProductId(rs.getInt("product_id"));// p.(voº¯¼ö¸í) = rs.getInt(""); 
+			p = new Product(); // ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
+			p.setProductId(rs.getInt("product_id"));// p.(voï¿½ï¿½ï¿½ï¿½ï¿½ï¿½) = rs.getInt(""); 
 			p.setCategoryId(rs.getInt("category_id"));
 			p.setProductContent(rs.getString("product_content"));
 			p.setProductPic(rs.getString("product_pic"));
@@ -45,20 +45,23 @@ public class ProductDao{
 			p.setProductName(rs.getString("product_name"));
 			p.setProductPrice(rs.getInt("product_price"));
 		}
+		conn.close();
 		return p;
 	}
-	public ArrayList<Product> selectCategoryProductList(int categoryId) throws Exception{
+	public ArrayList<Product> selectCategoryProductList(int categoryId,int limit1,int limit2) throws Exception{
 		ArrayList<Product> list = new ArrayList<Product>();
 		Class.forName("org.mariadb.jdbc.Driver");
 		Connection conn = DriverManager.getConnection("jdbc:mariadb://3.36.19.131/mall","root","java1004");
-		String sql = "select * from product where category_id=?";
+		String sql = "select * from product where category_id=? limit ?,?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, categoryId);
+		stmt.setInt(2, limit1);
+		stmt.setInt(3, limit2);
 		ResultSet rs = stmt.executeQuery();
 		
-		while(rs.next()) { // set = °ªÀ» Áý¾î³ÖÀ»‹š   get = °ªÀ» ºÒ·¯¿Ã¶§
-			Product p = new Product(); // °´Ã¼ ¸®½ºÆ® »ý¼º
-			p.setProductId(rs.getInt("product_id")); // p.(voº¯¼ö¸í) = rs.getInt(""); 
+		while(rs.next()) { // set = ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½   get = ï¿½ï¿½ï¿½ï¿½ ï¿½Ò·ï¿½ï¿½Ã¶ï¿½
+			Product p = new Product(); // ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
+			p.setProductId(rs.getInt("product_id")); // p.(voï¿½ï¿½ï¿½ï¿½ï¿½ï¿½) = rs.getInt(""); 
 			p.setProductPic(rs.getString("product_pic"));
 			p.setProductName(rs.getString("product_name"));
 			p.setProductPrice(rs.getInt("product_price"));
@@ -67,5 +70,20 @@ public class ProductDao{
 		}
 		conn.close();
 		return list;
+	}
+	public int productCount(int categoryId) throws Exception{
+		int totalCount = 0;
+		Class.forName("org.mariadb.jdbc.Driver");
+		Connection conn = DriverManager.getConnection("jdbc:mariadb://3.36.19.131/mall","root","java1004");
+		String sql = "select count(*) from product where category_id=?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, categoryId);
+		
+		ResultSet rs = stmt.executeQuery(); // ì¿¼ë¦¬ ì‹¤í–‰
+		if(rs.next()) {
+			totalCount = rs.getInt("count(*)");
+		}
+		conn.close();
+		return totalCount;
 	}
 	}
