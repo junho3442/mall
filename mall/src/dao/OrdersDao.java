@@ -32,7 +32,7 @@ public class OrdersDao {
 			DBUtil dbUtil = new DBUtil();
 			Connection conn = dbUtil.getConnection();
 			
-			String sql = "insert into orders(product_id, orders_price, orders_amount, member_email, orders_addr, orders_state, orders_date) values(?,?,?,?,?,'°áÁ¦¿Ï·á',now())";
+			String sql = "insert into orders(product_id, orders_price, orders_amount, member_email, orders_addr, orders_state, orders_date) values(?,?,?,?,?,'ì£¼ë¬¸ì™„ë£Œ',NOW())";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1,orders.getProductId());
 			stmt.setInt(2, orders.getOrdersPrice());

@@ -113,7 +113,7 @@
 				%>	
 					<td>
 						<div class="card" style="width:200px, height:200px">
-						  <img class="card-img-top" src="<%=request.getContextPath()%>/imges/<%=p.getProductPic()%>"class="rounded-circle" width="150" height="150" alt="Card image">
+						  <img class="card-img-top" src="<%=request.getContextPath()%>/product-img/<%=p.getProductPic()%>"class="rounded-circle" width="150" height="150" alt="Card image">
 						  <div class="card-body">
 							  <h4 class="card-title"><a href="<%=request.getContextPath()%>/product/productOne.jsp?productId=<%=p.getProductId()%>"><%=p.getProductName() %></a></h4>
 							  <p class="card-text"><%=p.getProductPrice() %>원</p>
